@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+
+message Domain {
+	DomainUUID domainID = 1;
+	CloudFlareID cloudFlareID = 2;
+	string domain = 3;
+	string useDomain = 4;
+	string rammerheadDomain = 5;
+	string rammerheadHash = 6;
+}
+
+message DomainUUID {
+        UUID uuid = 1;
+}
+
+message CloudFlareID {
+	ID id = 1;
+}

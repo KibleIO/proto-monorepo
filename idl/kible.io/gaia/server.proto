@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/locationstore.proto";
+import "gaia/universal.proto";
+
+message Server {
+	ServerUUID serverID = 1;
+	ServerIP ip = 2;
+	ServerPassword password = 3;
+	LocationUUID locationID = 4;
+}
+
+message ServerIP {
+	string value = 1;
+}
+
+message ServerPassword {
+	string value = 1;
+}
+
+message ServerUUID {
+        UUID uuid = 1;
+}

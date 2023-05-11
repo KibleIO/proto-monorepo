@@ -1,0 +1,394 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/ad.proto";
+import "gaia/rana.proto";
+import "gaia/server.proto";
+import "gaia/universal.proto";
+import "gaia/versionstore.proto";
+import "gaia/locationstore.proto";
+import "gaia/connection.proto";
+import "gaia/product.proto";
+import "gaia/app.proto";
+
+// internal facing API
+service HESTIA {
+	rpc CreateServer(CreateServerRequest) returns (CreateServerResponse) {}
+	rpc GetServer(GetServerRequest) returns (GetServerResponse) {}
+	rpc ListServers(ListServersRequest) returns (ListServersResponse) {}
+	rpc SearchServer(SearchServerRequest) returns (SearchServerResponse) {}
+	rpc DeleteServer(DeleteServerRequest) returns (DeleteServerResponse) {}
+
+	rpc CreateConnection(CreateConnectionRequest) returns (CreateConnectionResponse) {} //depricated
+	rpc GetConnection(GetConnectionRequest) returns (GetConnectionResponse) {}
+	rpc SearchConnection(SearchConnectionRequest) returns (SearchConnectionResponse) {}
+	rpc GetRanaFromConnection(GetRanaFromConnectionRequest) returns (GetRanaFromConnectionResponse) {} //depricated
+	rpc SetConnectionUnused(SetConnectionUnusedRequest) returns (SetConnectionUnusedResponse) {} //depricated
+	rpc SetConnectionUnbooted(SetConnectionUnbootedRequest) returns (SetConnectionUnbootedResponse) {} //depricated
+	rpc ListConnections(ListConnectionsRequest) returns (ListConnectionsResponse) {}
+	rpc UpdateContainerIDConnection (UpdateContainerIDConnectionRequest) returns (UpdateContainerIDConnectionResponse) {}
+	rpc DeleteConnection(DeleteConnectionRequest) returns (DeleteConnectionResponse) {} //depricated
+	
+	rpc CreateConnectionNew(CreateConnectionNewRequest) returns (CreateConnectionNewResponse) {}
+	rpc DetachAndDeleteConnection(DetachAndDeleteConnectionRequest) returns (DetachAndDeleteConnectionResponse) {}
+
+	rpc SearchRana(SearchRanaRequest) returns (SearchRanaResponse) {}
+	rpc GetRana(GetRanaRequest) returns (GetRanaResponse) {}
+
+	rpc CreateVersionStore(CreateVersionStoreRequest) returns (CreateVersionStoreResponse) {}
+	rpc ListVersionStore(ListVersionStoreRequest) returns (ListVersionStoreResponse) {}
+	rpc UpdateVersionStore(UpdateVersionStoreRequest) returns (UpdateVersionStoreResponse) {}
+	
+	rpc CreateLocationStore(CreateLocationStoreRequest) returns (CreateLocationStoreResponse) {}
+	rpc GetLocationStore(GetLocationStoreRequest) returns (GetLocationStoreResponse) {}
+	rpc ListLocationStore(ListLocationStoreRequest) returns (ListLocationStoreResponse) {}
+
+	rpc RestartContainer(RestartContainerRequest) returns (RestartContainerResponse) {}
+	rpc DeleteContainer(DeleteContainerRequest) returns (DeleteContainerResponse) {}
+	rpc UpdateLocation(UpdateLocationRequest) returns (UpdateLocationResponse) {}
+
+	rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {}
+	rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {}
+	rpc ListRanaWithProduct(ListRanaWithProductRequest) returns (ListRanaWithProductResponse) {}
+	rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse) {}
+	rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {}
+
+	rpc CreateAd(CreateAdRequest) returns (CreateAdResponse) {}
+	rpc ListAdsInternal (ListAdsInternalRequest) returns (ListAdsInternalResponse) {}
+	rpc ListAllAds (ListAllAdsRequest) returns (ListAllAdsResponse) {}
+	rpc DeleteAd(DeleteAdRequest) returns (DeleteAdResponse) {}
+	rpc UpdateAd (UpdateAdRequest) returns (UpdateAdResponse) {}
+
+	rpc AttachConnectionToApp(AttachConnectionToAppRequest) returns (AttachConnectionToAppResponse) {}
+
+	rpc GiveProduct(GiveProductRequest) returns (GiveProductResponse) {}
+	rpc RemoveApp(RemoveAppRequest) returns (RemoveAppResponse) {}
+}
+
+message ListAllAdsRequest {
+	Empty empty = 1;
+}
+
+message ListAllAdsResponse {
+	repeated Ad ads = 1;
+}
+
+message ListAdsInternalRequest {
+	AdType adType = 1;
+}
+
+message ListAdsInternalResponse {
+	repeated Ad ads = 1;
+}
+
+message AttachConnectionToAppRequest {
+	AppUUID appID = 1;
+	ConnectionUUID connectionID = 2;
+}
+
+message AttachConnectionToAppResponse {
+	AppUUID appID = 1;
+}
+
+message CreateConnectionNewRequest {
+	Connection connection = 1;
+}
+
+message CreateConnectionNewResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message DetachAndDeleteConnectionRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message DetachAndDeleteConnectionResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message GiveProductRequest {
+	RanaUUID ranaID = 1;
+	ProductUUID productID = 2;
+}
+
+message GiveProductResponse {
+	Empty empty = 1;
+}
+
+message RemoveAppRequest {
+	RanaUUID ranaID = 1;
+	AppUUID appID = 2;
+}
+
+message RemoveAppResponse {
+	Empty empty = 1;
+}
+
+message CreateProductRequest {
+	Product product = 1;
+}
+
+message CreateProductResponse {
+	ProductUUID productID = 1;
+}
+
+message ListProductsRequest {
+	Empty empty = 1;
+}
+
+message ListProductsResponse {
+	repeated Product product = 1;
+}
+
+message ListRanaWithProductRequest {
+	ProductUUID productID = 1;
+}
+
+message ListRanaWithProductResponse {
+	repeated Rana rana = 1;
+}
+
+message UpdateProductRequest {
+	Product product = 1;
+}
+
+message UpdateProductResponse {
+	ProductUUID productID = 1;
+}
+
+message DeleteProductRequest {
+	ProductUUID productID = 1;
+}
+
+message DeleteProductResponse {
+	ProductUUID productID = 1;
+}
+
+message RestartContainerRequest {
+	AppUUID appID = 1;
+}
+
+message RestartContainerResponse {
+	AppUUID appID = 1;
+}
+
+message DeleteContainerRequest {
+	RanaUUID ranaID = 1;
+}
+
+message DeleteContainerResponse {
+	RanaUUID ranaID = 1;
+}
+
+message UpdateLocationRequest {
+	RanaUUID ranaID = 1;
+	LocationUUID locationID = 2;
+}
+
+message UpdateLocationResponse {
+	RanaUUID ranaID = 1;
+}
+
+message CreateServerRequest {
+	Server server = 1;
+}
+
+message CreateServerResponse {
+	ServerUUID serverID = 1;
+}
+
+message GetServerRequest {
+	ServerUUID serverID = 1;
+}
+
+message GetServerResponse {
+	Server server = 1;
+}
+
+message ListServersRequest {
+	LocationUUID locationID = 1;
+}
+
+message ListServersResponse {
+	repeated Server server = 1;
+}
+
+message SearchServerRequest {
+	ServerIP ip = 1;
+}
+
+message SearchServerResponse {
+	Server server = 1;
+}
+
+message DeleteServerRequest {
+	ServerUUID serverID = 1;
+}
+
+message DeleteServerResponse {
+	ServerUUID serverID = 1;
+}
+
+message CreateConnectionRequest {
+	Connection connection = 1;
+}
+
+message CreateConnectionResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message GetConnectionRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message GetConnectionResponse {
+	Connection connection = 1;
+}
+
+message SearchConnectionRequest {
+	ContainerID containerID = 1;
+}
+
+message SearchConnectionResponse {
+	Connection connection = 1;
+}
+
+message GetRanaFromConnectionRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message GetRanaFromConnectionResponse {
+	Rana rana = 1;
+}
+
+message SetConnectionUnusedRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message SetConnectionUnusedResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message SetConnectionUnbootedRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message SetConnectionUnbootedResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message ListConnectionsRequest {
+	Connection connection = 1;
+}
+
+message ListConnectionsResponse {
+	repeated Connection connection = 1;
+}
+
+message DeleteConnectionRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message DeleteConnectionResponse {
+	ConnectionUUID connectionID = 1;
+}
+
+message SearchRanaRequest {
+	Email email = 1;
+}
+
+message SearchRanaResponse {
+	Rana rana = 1;
+}
+
+message GetRanaRequest {
+	RanaUUID ranaID = 1;
+}
+
+message GetRanaResponse {
+	Rana rana = 1;
+}
+
+message CreateVersionStoreRequest {
+	VersionStore version = 1;
+}
+
+message CreateVersionStoreResponse {
+	VersionUUID versionID = 1;
+}
+
+message ListVersionStoreRequest {
+	Empty empty = 1;
+}
+
+message ListVersionStoreResponse {
+	repeated VersionStore version = 1;
+}
+
+message UpdateContainerIDConnectionRequest {
+        ConnectionUUID connectionID = 1;
+        ContainerID containerID = 2;
+}
+
+message UpdateContainerIDConnectionResponse {
+        ConnectionUUID connectionID = 1;
+}
+
+message UpdateVersionStoreRequest {
+	VersionStore version = 1;
+}
+
+message UpdateVersionStoreResponse {
+	VersionUUID versionID = 1;
+}
+
+message CreateLocationStoreRequest {
+	LocationStore location = 1;
+}
+
+message CreateLocationStoreResponse {
+	LocationUUID locationID = 1;
+}
+
+message GetLocationStoreRequest {
+	LocationUUID locationID = 1;
+}
+
+message GetLocationStoreResponse {
+	LocationStore location = 1;
+}
+
+message ListLocationStoreRequest {
+	Empty empty = 1;
+}
+
+message ListLocationStoreResponse {
+	repeated LocationStore location = 1;
+}
+
+message CreateAdRequest {
+	Ad ad = 1;
+}
+
+message CreateAdResponse {
+	AdUUID adID = 1;
+}
+
+message DeleteAdRequest {
+	AdUUID adID = 1;
+}
+
+message DeleteAdResponse {
+	AdUUID adID = 1;
+}
+
+message UpdateAdRequest {
+	Ad ad = 1;
+}
+
+message UpdateAdResponse {
+	AdUUID adID = 1;
+}

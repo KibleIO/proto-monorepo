@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "gaia/account.proto";
+import "google/protobuf/timestamp.proto";
+import "gaia/streamingaccount.proto";
+
+message Session {
+	SessionUUID sessionID = 1;
+	AccountUUID accountID = 2;
+	google.protobuf.Timestamp expiresAt = 3;
+	google.protobuf.Timestamp sessionStartAt = 4;
+	StreamingAccountUUID streamingAccountID = 5;
+	Cookie cookie = 6; //wow, perhaps the ugliest thing I've ever done
+}
+
+message SessionUUID {
+	UUID uuid = 1;
+}

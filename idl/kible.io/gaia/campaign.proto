@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+
+message Campaign {
+	CampaignUUID campaignID = 1;
+	CampaignName name = 2;
+	string imageUrl = 3;
+	bool activated = 4;
+	bool isSafeForHolyUnblocker = 5;
+}
+
+message CampaignUUID {
+        UUID uuid = 1;
+}
+
+message CampaignName {
+	string value = 1;
+}

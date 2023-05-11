@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "google/protobuf/timestamp.proto";
+
+message StreamingAccount {
+	StreamingAccountUUID streamingAccountID = 1;
+	StreamingMerchant streamingMerchant = 2;
+	Cookie cookie = 3;
+	string username = 4;
+	string password = 5;
+	bool used = 6;
+}
+
+message StreamingAccountUUID {
+	UUID uuid = 1;
+}
+
+message Cookie {
+	string cookie = 1;
+	google.protobuf.Timestamp expiresAt = 2;
+	CookieType cookieType = 3;
+}
+
+enum StreamingMerchant {
+	STREAMINGMERCHANT_INVALID = 0;
+
+	STREAMINGMERCHANT_NETFLIX = 1;
+
+	STREAMINGMERCHANT_HBOMAX = 2;
+
+	STREAMINGMERCHANT_DISNEYPLUS = 3;
+
+	STREAMINGMERCHANT_HULU = 4;
+}
+
+enum CookieType {
+	COOKIETYPE_INVALID = 0;
+
+	COOKIETYPE_INJECTED = 1;
+
+	COOKIETYPE_LOCALSTORAGE = 2;
+}

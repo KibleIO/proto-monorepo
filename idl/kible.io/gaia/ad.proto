@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "gaia/product.proto";
+
+message Ad {
+	AdUUID adID = 1;
+	AdType adType = 2;
+
+	//this should correspond to the adType
+	//oneof AdInfo { omitting the oneof because mongo doesn't store these
+	AdInternalBanner adInternalBanner = 3;
+	AdOneTime adOneTime = 4;
+	AdRecurring adRecurring = 5;
+	//}
+
+	// in what circumstances should we display this ad?
+	AdVisibility adVisibility = 6;
+
+	AdActionType adActionType = 7;
+
+	//this should correspond to the adActionType
+	//oneof AdActionInfo { omitting the oneof because mongo doesn't store these
+	AdActionKibleProduct adActionKibleProduct = 8;
+	AdActionExternalLink adActionExternalLink = 9;
+	AdActionSurvey adActionSurvey = 10;
+	AdActionImage adActionImage = 11;
+	//}
+
+	// both name and description will only be used if the user is incapable
+	// of communicating with http pages. Also on the management page
+	string name = 12;
+	string description = 13;
+}
+
+enum AdType {
+	ADTYPE_INVALID = 0;
+
+	// this type of add will display on the home screen of the kible app
+	// in a carousel wheel type thing
+	ADTYPE_INTERNAL_BANNER = 1;
+
+	// this ad will pop up just once when the app is being loaded
+	ADTYPE_ONE_TIME = 2;
+
+	// this ad will pop up regularly while the user is logged into Kible
+	ADTYPE_RECURRING = 3;
+}
+
+message AdInternalBanner {
+	// what image should we display in the carousel
+	string imageUrl = 1;
+}
+
+message AdOneTime {
+	// how long should we force the user to look at the ad (in seconds).
+	// Set to zero for no delay
+	int32 timeTillCloseSeconds = 1;
+}
+
+message AdRecurring {
+	// on what interval should we display this ad?
+	int32 displayIntervalSeconds = 1;
+
+	// how long should we force the user to look at the ad (in seconds).
+	// Set to zero for no delay
+	int32 timeTillCloseSeconds = 2;
+}
+
+enum AdVisibility {
+	ADVISIBILITY_INVALID = 0;
+	
+	// this ad is only visible to free users
+	ADVISIBILITY_FREE = 1;
+
+	// this ad is only visible to paid users... weird but ok
+	ADVISIBILITY_PREMIUM = 2;
+
+	// this ad is visible to everyone
+	ADVISIBILITY_ALL = 3;
+
+	// only show this ad for testers
+	ADVISIBILITY_TESTING = 4;
+}
+
+enum AdActionType {
+	ADACTIONTYPE_INVALID = 0;
+
+	// when this ad is activated show the user a kible product!
+	ADACTIONTYPE_KIBLE_PRODUCT = 1;
+
+	// when this ad is activated take the user to an external 3rd party page
+	ADACTIONTYPE_EXTERNAL_LINK = 2;
+
+	// when this ad is activated take the user to a survey with a terminal link
+	ADACTIONTYPE_SURVEY = 3;
+
+	// when this ad is activated show the user an image
+	ADACTIONTYPE_IMAGE = 4;
+}
+
+message AdActionKibleProduct {
+	ProductUUID product = 1;
+}
+
+message AdActionExternalLink {
+	string redirectUrl = 1;
+}
+
+message AdActionSurvey {
+	// what is the survey URL?
+	string surveyUrl = 1;
+
+	// where will the survey re-direct to to notify the backend that the
+	// survey is done
+	string terminalUrl = 2;
+}
+
+message AdActionImage {
+	string imageUrl = 1;
+}
+
+message AdUUID {
+    UUID uuid = 1;
+}

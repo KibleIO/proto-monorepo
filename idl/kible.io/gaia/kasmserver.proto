@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "gaia/locationstore.proto";
+
+message KasmServer {
+	KasmServerUUID kasmServerID = 1;
+	string publicApiKey = 2;
+	string privateApiKey = 3;
+	string address = 4;
+	string imageID = 5;
+	LocationUUID locationID = 6;
+	string kasmUIPassword = 7;
+	string rootPassword = 8;
+}
+
+message KasmServerUUID {
+	UUID uuid = 1;
+}

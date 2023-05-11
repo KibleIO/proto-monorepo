@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "google/protobuf/timestamp.proto";
+import "gaia/connection.proto";
+import "gaia/universal.proto";
+import "gaia/locationstore.proto";
+import "gaia/product.proto";
+import "gaia/app.proto";
+
+message Rana {
+        RanaUUID ranaID = 1;
+	Email email = 2;
+	ConnectionUUID connectionID = 3 [deprecated = true];
+	google.protobuf.Timestamp createdAt = 4;
+	google.protobuf.Timestamp lastSignIn = 5;
+	LocationUUID locationID = 6;
+	string ip = 7;
+	repeated ProductUUID products = 8  [deprecated = true];
+	string checkoutSession = 9;
+	string stytchUserID = 10;
+	repeated App apps = 11;
+}
+
+message CheckpointUUID {
+        UUID uuid = 1;
+}
+
+message RanaUUID {
+        UUID uuid = 1;
+}
+
+message Email {
+	string value = 1;
+}

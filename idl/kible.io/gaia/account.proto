@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+package kible.gaia;
+
+
+import "gaia/universal.proto";
+import "gaia/rana.proto";
+import "gaia/kasmserver.proto";
+import "gaia/locationstore.proto";
+import "google/protobuf/timestamp.proto";
+
+message Account {
+	AccountUUID accountID = 1;
+	KasmID kasmID = 2;
+	Email email = 3;
+	Password password = 4;
+	KasmServerUUID kasmServerID = 5;
+	LocationUUID locationID = 6;
+	ResetPasswordUUID resetPasswordID = 7;
+	google.protobuf.Timestamp createdAt = 8;
+	AccountType accountType = 9;
+	string discordUsername = 10;
+	AccountPackage accountPackage = 11;
+}
+
+enum AccountType {
+	ACCOUNTTYPE_INVALID = 0;
+
+	ACCOUNTTYPE_FREE = 1;
+
+	ACCOUNTTYPE_CASHAPP = 2;
+
+	ACCOUNTTYPE_STRIPE = 3;
+
+	ACCOUNTTYPE_PAYPAL = 4;
+}
+
+enum AccountPackage {
+	ACCOUNTPACKAGE_INVALID = 0;
+
+	ACCOUNTPACKAGE_BASIC = 1;
+
+	ACCOUNTPACKAGE_PREMIUM = 2;
+}
+
+message AccountUUID {
+	UUID uuid = 1;
+}
+
+message KasmID {
+	ID id = 1;
+}
+
+message Password {
+	string value = 1;
+}
+
+message ResetPasswordUUID {
+	UUID uuid = 1;
+}

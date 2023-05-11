@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/domainpb";
+
+package kible.domain;
+
+import "gaia/account.proto";
+import "gaia/server.proto";
+
+// external facing API
+service DOMAIN {
+	rpc GetInstancePath (GetInstancePathRequest) returns (GetInstancePathResponse) {}
+}
+
+message GetInstancePathRequest {
+	kible.gaia.AccountUUID accountID = 1;
+	kible.gaia.ServerUUID serverID = 2;
+	string domain = 3;
+}
+
+message GetInstancePathResponse {
+	string path = 1;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/deploymentpb";
+
+package kible.deployment;
+
+
+// external facing API
+service DEPLOYMENT {
+	rpc GetServiceConnection (GetServiceRequest) returns (GetServiceResponse) {}
+
+}
+
+message GetServiceRequest {
+	string accountid = 1;
+}
+
+message GetServiceResponse {
+	string address = 1;
+}

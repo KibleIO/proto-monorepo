@@ -1,0 +1,647 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "gaia/locationstore.proto";
+import "gaia/session.proto";
+import "gaia/account.proto";
+import "gaia/kasmserver.proto";
+import "gaia/rana.proto";
+import "gaia/campaign.proto";
+import "gaia/domain.proto";
+import "gaia/abtest.proto";
+import "gaia/streamingaccount.proto";
+
+service ERIS {
+	//RPC's for accounts
+	rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
+	rpc ReadAccount(ReadAccountRequest) returns (ReadAccountResponse) {}
+	rpc UpdateAccount(UpdateAccountRequest) returns (UpdateAccountResponse) {}
+	rpc UpdateAccountNoPassword(UpdateAccountNoPasswordRequest) returns (UpdateAccountNoPasswordResponse) {}
+	rpc StartUpdateAccountPassword(StartUpdateAccountPasswordRequest) returns (StartUpdateAccountPasswordResponse) {}
+	rpc UpdateAccountPassword(UpdateAccountPasswordRequest) returns (UpdateAccountPasswordResponse) {}
+	rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {}
+	rpc RequestKasmSession(RequestKasmSessionRequest) returns (RequestKasmSessionResponse) {}
+	rpc Login(LoginRequest) returns (LoginResponse) {}
+	rpc SearchAccount(SearchAccountRequest) returns (SearchAccountResponse) {}
+	rpc ListActiveAccounts(ListActiveAccountsRequest) returns (ListActiveAccountsResponse) {}
+	rpc ListInActiveAccounts(ListInActiveAccountsRequest) returns (ListInActiveAccountsResponse) {}
+
+	//RPC's for kasmservers
+	rpc CreateKasmServer(CreateKasmServerRequest) returns (CreateKasmServerResponse) {}
+	rpc ReadKasmServer(ReadKasmServerRequest) returns (ReadKasmServerResponse) {}
+	rpc UpdateKasmServer(UpdateKasmServerRequest) returns (UpdateKasmServerResponse) {}
+	rpc DeleteKasmServer(DeleteKasmServerRequest) returns (DeleteKasmServerResponse) {}
+	rpc GetNumberOfAssignedAccounts(GetNumberOfAssignedAccountsRequest) returns (GetNumberOfAssignedAccountsResponse) {}
+	rpc GetFreeServerInLocation(GetFreeServerInLocationRequest) returns (GetFreeServerInLocationResponse) {}
+	rpc AttachAccount(AttachAccountRequest) returns (AttachAccountResponse) {}
+	rpc DetachAccount(DetachAccountRequest) returns (DetachAccountResponse) {}
+	rpc ListKasmServers(ListKasmServersRequest) returns (ListKasmServersResponse) {}
+	rpc GetAvailability(GetAvailabilityRequest) returns (GetAvailabilityResponse) {}
+	rpc SearchKasmServer(SearchKasmServerRequest) returns (SearchKasmServerResponse) {}
+
+	//RPC's for locationstore
+	rpc CreateLocationStoreE(CreateLocationStoreERequest) returns (CreateLocationStoreEResponse) {}
+	rpc ReadLocationStoreE(ReadLocationStoreERequest) returns (ReadLocationStoreEResponse) {}
+	rpc ListLocationStoreE(ListLocationStoreERequest) returns (ListLocationStoreEResponse) {}
+
+	//RPC's for sessions
+	rpc ReadSession(ReadSessionRequest) returns (ReadSessionResponse) {}
+	rpc DeleteSession(DeleteSessionRequest) returns (DeleteSessionResponse) {}
+	rpc CloseSession(CloseSessionRequest) returns (CloseSessionResponse) {}
+
+	//RPC's for campaigns
+	rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse) {}
+	rpc ReadCampaign(ReadCampaignRequest) returns (ReadCampaignResponse) {}
+	rpc UpdateCampaign(UpdateCampaignRequest) returns (UpdateCampaignResponse) {}
+	rpc DeleteCampaign(DeleteCampaignRequest) returns (DeleteCampaignResponse) {}
+	rpc ReadRandomCampaign(ReadRandomCampaignRequest) returns (ReadRandomCampaignResponse) {}
+	rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse) {}
+
+	//RPC's for domains
+	rpc CreateDomain(CreateDomainRequest) returns (CreateDomainResponse) {}
+	rpc ReadDomain(ReadDomainRequest) returns (ReadDomainResponse) {}
+	rpc UpdateDomain(UpdateDomainRequest) returns (UpdateDomainResponse) {}
+	rpc DeleteDomain(DeleteDomainRequest) returns (DeleteDomainResponse) {}
+	rpc ListDomains(ListDomainsRequest) returns (ListDomainsResponse) {}
+	rpc SearchDomain(SearchDomainRequest) returns (SearchDomainResponse) {}
+	rpc SearchDomainHash(SearchDomainHashRequest) returns (SearchDomainHashResponse) {}
+
+	//RPC's for abtests
+	rpc CreateAbtest(CreateAbtestRequest) returns (CreateAbtestResponse) {}
+	rpc ReadAbtest(ReadAbtestRequest) returns (ReadAbtestResponse) {}
+	rpc UpdateAbtest(UpdateAbtestRequest) returns (UpdateAbtestResponse) {}
+	rpc DeleteAbtest(DeleteAbtestRequest) returns (DeleteAbtestResponse) {}
+	rpc ListAbtests(ListAbtestsRequest) returns (ListAbtestsResponse) {}
+
+	rpc CreateAbsubtest(CreateAbsubtestRequest) returns (CreateAbsubtestResponse) {}
+	rpc ReadAbsubtest(ReadAbsubtestRequest) returns (ReadAbsubtestResponse) {}
+	rpc UpdateAbsubtest(UpdateAbsubtestRequest) returns (UpdateAbsubtestResponse) {}
+	rpc DeleteAbsubtest(DeleteAbsubtestRequest) returns (DeleteAbsubtestResponse) {}
+	rpc ListAbsubtests(ListAbsubtestsRequest) returns (ListAbsubtestsResponse) {}
+	rpc ReadRandomAbsubtest(ReadRandomAbsubtestRequest) returns (ReadRandomAbsubtestResponse) {}
+
+	//utils
+	rpc PropogateDomains(PropogateDomainsRequest) returns (PropogateDomainsResponse) {}
+	rpc PropogateDomainsProgress(PropogateDomainsProgressRequest) returns (PropogateDomainsProgressResponse) {}
+	rpc FixKasm(FixKasmRequest) returns (FixKasmResponse) {}
+
+	//RPC's for streamingaccounts
+	rpc CreateStreamingAccount(CreateStreamingAccountRequest) returns (CreateStreamingAccountResponse) {}
+	rpc ReadStreamingAccount(ReadStreamingAccountRequest) returns (ReadStreamingAccountResponse) {}
+	rpc UpdateStreamingAccount(UpdateStreamingAccountRequest) returns (UpdateStreamingAccountResponse) {}
+	rpc DeleteStreamingAccount(DeleteStreamingAccountRequest) returns (DeleteStreamingAccountResponse) {}
+	rpc ListStreamingAccount(ListStreamingAccountRequest) returns (ListStreamingAccountResponse) {}
+	rpc GetStreamingAccountAvailability(GetStreamingAccountAvailabilityRequest) returns (GetStreamingAccountAvailabilityResponse) {}
+	rpc UpdateStreamingAccountAvailability(UpdateStreamingAccountAvailabilityRequest) returns (UpdateStreamingAccountAvailabilityResponse) {}
+	rpc PingStreamingAccount(PingStreamingAccountRequest) returns (PingStreamingAccountResponse) {}
+	
+	//RPC's for debugging cookies
+	rpc ManuallyAttachCookie(ManuallyAttachCookieRequest) returns (ManuallyAttachCookieResponse) {}
+	rpc ManuallyDetachCookie(ManuallyDetachCookieRequest) returns (ManuallyDetachCookieResponse) {}
+}
+
+message ManuallyAttachCookieRequest {
+	AccountUUID accountID = 1;
+	StreamingAccountUUID streamingAccountID = 2;
+}
+
+message ManuallyAttachCookieResponse {
+	Empty empty = 1;
+}
+
+message ManuallyDetachCookieRequest {
+	StreamingAccountUUID streamingAccountID = 2;
+}
+
+message ManuallyDetachCookieResponse {
+	Empty empty = 1;
+}
+
+message PingStreamingAccountRequest {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message PingStreamingAccountResponse {
+	Empty empty = 1;
+}
+
+message CreateStreamingAccountRequest {
+	StreamingAccount streamingAccount = 1;
+}
+
+message CreateStreamingAccountResponse {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message ReadStreamingAccountRequest {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message ReadStreamingAccountResponse {
+	StreamingAccount streamingAccount = 1;
+}
+
+message UpdateStreamingAccountRequest {
+	StreamingAccount streamingAccount = 1;
+}
+
+message UpdateStreamingAccountResponse {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message DeleteStreamingAccountRequest {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message DeleteStreamingAccountResponse {
+	StreamingAccountUUID streamingAccountID = 1;
+}
+
+message ListStreamingAccountRequest {
+	Empty empty = 1;
+}
+
+message ListStreamingAccountResponse {
+	repeated StreamingAccount streamingAccounts = 1;
+}
+
+message GetStreamingAccountAvailabilityRequest {
+	Empty empty = 1;
+}
+
+message GetStreamingAccountAvailabilityResponse {
+	repeated StreamingMerchant streamingMerchant = 1;
+	repeated int32 availability = 2;
+}
+
+message UpdateStreamingAccountAvailabilityRequest {
+	Empty empty = 1;
+}
+
+message UpdateStreamingAccountAvailabilityResponse {
+	Empty empty = 1;
+}
+
+message FixKasmRequest {
+	Empty empty = 1;
+}
+
+message FixKasmResponse {
+	Empty empty = 1;
+}
+
+message PropogateDomainsRequest {
+	Empty empty = 1;
+}
+
+message PropogateDomainsResponse {
+	Empty empty = 1;
+}
+
+message PropogateDomainsProgressRequest {
+	Empty empty = 1;
+}
+
+message PropogateDomainsProgressResponse {
+	bool running = 1;
+	int32 secondsLeft = 2;
+	string errorStr = 3;
+}
+
+message CreateAbtestRequest {
+	Abtest abtest = 1;
+}
+
+message CreateAbtestResponse {
+	AbtestUUID abtestID = 1;
+}
+
+message ReadAbtestRequest {
+	AbtestUUID abtestID = 1;
+}
+
+message ReadAbtestResponse {
+	Abtest abtest = 1;
+}
+
+message UpdateAbtestRequest {
+	Abtest abtest = 1;
+}
+
+message UpdateAbtestResponse {
+	AbtestUUID abtestID = 1;
+}
+
+message DeleteAbtestRequest {
+	AbtestUUID abtestID = 1;
+}
+
+message DeleteAbtestResponse {
+	AbtestUUID abtestID = 1;
+}
+
+message ListAbtestsRequest {
+	Empty empty = 1;
+}
+
+message ListAbtestsResponse {
+	repeated Abtest abtest = 1;
+}
+
+message ReadRandomAbsubtestRequest {
+	string medium = 1;
+	string campaignID = 2; //this should really be CampaignUUID
+}
+
+message ReadRandomAbsubtestResponse {
+	Absubtest absubtest = 1;
+}
+
+message CreateAbsubtestRequest {
+	Absubtest absubtest = 1;
+}
+
+message CreateAbsubtestResponse {
+	AbsubtestUUID absubtestID = 1;
+}
+
+message ReadAbsubtestRequest {
+	AbsubtestUUID absubtestID = 1;
+}
+
+message ReadAbsubtestResponse {
+	Absubtest absubtest = 1;
+}
+
+message UpdateAbsubtestRequest {
+	Absubtest absubtest = 1;
+}
+
+message UpdateAbsubtestResponse {
+	AbsubtestUUID absubtestID = 1;
+}
+
+message DeleteAbsubtestRequest {
+	AbsubtestUUID absubtestID = 1;
+}
+
+message DeleteAbsubtestResponse {
+	AbsubtestUUID absubtestID = 1;
+}
+
+message ListAbsubtestsRequest {
+	AbtestUUID abtestID = 1;
+}
+
+message ListAbsubtestsResponse {
+	repeated Absubtest absubtest = 1;
+}
+
+message SearchDomainHashRequest {
+	string domain = 1;
+}
+
+message SearchDomainHashResponse {
+	Domain domain = 1;
+}
+
+message SearchDomainRequest {
+	string domain = 1;
+}
+
+message SearchDomainResponse {
+	Domain domain = 1;
+}
+
+message CreateDomainRequest {
+	Domain domain = 1;
+}
+
+message CreateDomainResponse {
+	DomainUUID domainID = 1;
+}
+
+message ReadDomainRequest {
+	DomainUUID domainID = 1;
+}
+
+message ReadDomainResponse {
+	Domain domain = 1;
+}
+
+message UpdateDomainRequest {
+	Domain domain = 1;
+}
+
+message UpdateDomainResponse {
+	DomainUUID domainID = 1;
+}
+
+message DeleteDomainRequest {
+	DomainUUID domainID = 1;
+}
+
+message DeleteDomainResponse {
+	DomainUUID domainID = 1;
+}
+
+message ListDomainsRequest {
+	Empty empty = 1;
+}
+
+message ListDomainsResponse {
+	repeated Domain domain = 1;
+}
+
+message SearchKasmServerRequest {
+	string address = 1;
+}
+
+message SearchKasmServerResponse {
+	KasmServer kasmServer = 1;
+}
+
+message ListCampaignsRequest {
+	bool activated = 1;
+}
+
+message ListCampaignsResponse {
+	repeated Campaign campaign = 1;
+}
+
+message CreateCampaignRequest {
+	Campaign campaign = 1;
+}
+
+message CreateCampaignResponse {
+	CampaignUUID campaignID = 1;
+}
+
+message ReadCampaignRequest {
+	CampaignUUID campaignID = 1;
+}
+
+message ReadCampaignResponse {
+	Campaign campaign = 1;
+}
+
+message UpdateCampaignRequest {
+	Campaign campaign = 1;
+}
+
+message UpdateCampaignResponse {
+	CampaignUUID campaignID = 1;
+}
+
+message DeleteCampaignRequest {
+	CampaignUUID campaignID = 1;
+}
+
+message DeleteCampaignResponse {
+	CampaignUUID campaignID = 1;
+}
+
+message ReadRandomCampaignRequest {
+	string medium = 1;
+}
+
+message ReadRandomCampaignResponse {
+	Campaign campaign = 1;
+}
+
+message CreateAccountRequest {
+	Account account = 1;
+}
+
+message CreateAccountResponse {
+	AccountUUID accountID = 1;
+}
+
+message ReadAccountRequest {
+	AccountUUID accountID = 1;
+}
+
+message ReadAccountResponse {
+	Account account = 1;
+}
+
+message UpdateAccountRequest {
+	Account account = 1;
+}
+
+message UpdateAccountResponse {
+	AccountUUID accountID = 1;
+}
+
+message UpdateAccountNoPasswordRequest {
+	Account account = 1;
+}
+
+message UpdateAccountNoPasswordResponse {
+	AccountUUID accountID = 1;
+}
+
+message StartUpdateAccountPasswordRequest {
+	Email email = 1;
+	bool sendEmail = 2;
+	string domain = 3;
+}
+
+message StartUpdateAccountPasswordResponse {
+	ResetPasswordUUID resetPasswordID = 1;
+}
+
+message UpdateAccountPasswordRequest {
+	ResetPasswordUUID resetPasswordID = 1;
+	Password password = 2;
+}
+
+message UpdateAccountPasswordResponse {
+	AccountUUID accountID = 1;
+}
+
+message DeleteAccountRequest {
+	AccountUUID accountID = 1;
+}
+
+message DeleteAccountResponse {
+	AccountUUID accountID = 1;
+}
+
+message RequestKasmSessionRequest {
+	AccountUUID accountID = 1;
+}
+
+message RequestKasmSessionResponse {
+	string kasmSessionUrl = 1;
+}
+
+message LoginRequest {
+	Email email = 1;
+	Password password = 2;
+}
+
+message LoginResponse {
+	SessionUUID sessionID = 1;
+}
+
+message SearchAccountRequest {
+	Email email = 1;
+}
+
+message SearchAccountResponse {
+	Account account = 1;
+}
+
+message ListActiveAccountsRequest {
+	Empty empty = 1;
+}
+
+message ListActiveAccountsResponse {
+	repeated Account accounts = 1;
+	int32 numberOfAccounts = 2;
+}
+
+message ListInActiveAccountsRequest {
+	Empty empty = 1;
+}
+
+message ListInActiveAccountsResponse {
+	repeated Account accounts = 1;
+	int32 numberOfAccounts = 2;
+}
+
+message CreateKasmServerRequest {
+	KasmServer kasmServer = 1;
+}
+
+message CreateKasmServerResponse {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message ReadKasmServerRequest {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message ReadKasmServerResponse {
+	KasmServer kasmServer = 1;
+}
+
+message UpdateKasmServerRequest {
+	KasmServer kasmServer = 1;
+}
+
+message UpdateKasmServerResponse {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message DeleteKasmServerRequest {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message DeleteKasmServerResponse {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message GetNumberOfAssignedAccountsRequest {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message GetNumberOfAssignedAccountsResponse {
+	int32 numberOfAccounts = 1;
+}
+
+message GetFreeServerInLocationRequest {
+	LocationUUID locationID = 1;
+}
+
+message GetFreeServerInLocationResponse {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message AttachAccountRequest {
+	KasmServerUUID kasmServerID = 1;
+	AccountUUID accountID = 2;
+}
+
+message AttachAccountResponse {
+	KasmServerUUID kasmServerID = 1;
+}
+
+message DetachAccountRequest {
+	AccountUUID accountID = 1;
+}
+
+message DetachAccountResponse {
+	AccountUUID accountID = 1;
+}
+
+message ListKasmServersRequest {
+	Empty empty = 1;
+}
+
+message ListKasmServersResponse {
+	repeated KasmServer kasmServers = 1;
+}
+
+message GetAvailabilityRequest {
+	Empty empty = 1;
+}
+
+message GetAvailabilityResponse {
+	repeated LocationStore locations = 1;
+	repeated int32 availability = 2;
+}
+
+message CreateLocationStoreERequest {
+	LocationStore locationStore = 1;
+}
+
+message CreateLocationStoreEResponse {
+	LocationUUID locationID = 1;
+}
+
+message ReadLocationStoreERequest {
+	LocationUUID locationID = 1;
+}
+
+message ReadLocationStoreEResponse {
+	LocationStore locationStore = 1;
+}
+
+message ListLocationStoreERequest {
+	Empty empty = 1;
+}
+
+message ListLocationStoreEResponse {
+	repeated LocationStore locationStore = 1;
+}
+
+message ReadSessionRequest {
+	SessionUUID sessionID = 1;
+	StreamingMerchant streamingMerchant = 2;
+}
+
+message ReadSessionResponse {
+	Session session = 1;
+}
+
+message DeleteSessionRequest {
+	SessionUUID sessionID = 1;
+}
+
+message DeleteSessionResponse {
+	SessionUUID sessionID = 1;
+}
+
+message CloseSessionRequest {
+	SessionUUID sessionID = 1;
+}
+
+message CloseSessionResponse {
+	Empty empty = 1;
+}

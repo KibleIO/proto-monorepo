@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+import "gaia/connection.proto";
+import "gaia/product.proto";
+
+message App {
+	AppUUID appID = 1;
+	ProductUUID productID = 2;
+	ConnectionUUID connectionID = 3;
+}
+
+message AppUUID {
+        UUID uuid = 1;
+}

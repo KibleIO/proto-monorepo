@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+message UUID {
+	string value = 1;
+}
+
+message ID {
+	string value = 1;
+}
+
+message Empty {
+}

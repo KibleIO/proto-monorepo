@@ -1,0 +1,258 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/ad.proto";
+import "gaia/rana.proto";
+import "gaia/versionstore.proto";
+import "gaia/connection.proto";
+import "gaia/locationstore.proto";
+import "gaia/universal.proto";
+import "gaia/product.proto";
+import "gaia/app.proto";
+
+// external facing API
+service GATEWAY {
+	//RPC's that don't require authentication
+	rpc RegisterThemis (RegisterThemisRequest) returns (RegisterThemisResponse) {}
+	rpc GetVersionStore (GetVersionStoreRequest) returns (GetVersionStoreResponse) {}
+	rpc ListAds (ListAdsRequest) returns (ListAdsResponse) {}
+	rpc GetAvailableProducts (GetAvailableProductsRequest) returns (GetAvailableProductsResponse) {}
+	rpc GetProduct (GetProductRequest) returns (GetProductResponse) {}
+	rpc GetAd(GetAdRequest) returns (GetAdResponse) {}
+	rpc GetLocations (GetLocationsRequest) returns (GetLocationsResponse) {}
+	rpc GetProductFromConnection(GetProductFromConnectionRequest) returns (GetProductFromConnectionResponse) {}
+	
+	//RPC's that require authentication
+	rpc CheckSessionToken (CheckSessionTokenRequest) returns (CheckSessionTokenResponse) {}
+	rpc CheckPasswordStrength (CheckPasswordStrengthRequest) returns (CheckPasswordStrengthResponse) {}
+	rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse) {}
+	rpc CreateRanaAccount (CreateRanaAccountRequest) returns (CreateRanaAccountResponse) {}
+	rpc LoginRana (LoginRanaRequest) returns (LoginRanaResponse) {}
+	rpc CreatePaymentUrlAuth (CreatePaymentUrlAuthRequest) returns (CreatePaymentUrlAuthResponse) {}
+	rpc CheckPaymentAuth (CheckPaymentAuthRequest) returns (CheckPaymentAuthResponse) {}
+	rpc GetApps (GetAppsRequest) returns (GetAppsResponse) {}
+	rpc WakeUpApp (WakeUpAppRequest) returns (WakeUpAppResponse) {}
+	rpc GetApp(GetAppRequest) returns (GetAppResponse) {}
+}
+
+/*
+
+themis continuous loop registering.... check if connection is unequal and re-init everything
+
+Rana Create function just creates and email address
+-> create
+-> create checkpoint
+-> delete
+
+Rana Register
+-> grab a connection and set it to used
+-> create
+-> start from checkpoint
+
+Cron job every 10 minutes
+-> check all used connections... see if themis is still connected
+-> if no...
+-> create checkpoint
+-> delete
+-> set connection to unused
+
+*/
+
+message GetAppRequest {
+	string sessionToken = 1;
+	AppUUID appID = 2;
+}
+
+message GetAppResponse {
+	App app = 1;
+}
+
+message CreateRanaRequest {
+	Email email = 1;
+	RanaUUID ranaID = 2;
+	LocationUUID locationID = 3;
+}
+
+message CreateRanaResponse {
+	RanaUUID ranaID = 1;
+}
+
+message RegisterRanaRequest {
+	RanaUUID ranaID = 1;
+}
+
+message RegisterRanaResponse {
+	Connection connection = 1;
+}
+
+message RegisterThemisRequest {
+	ContainerID containerID = 1;
+}
+
+message RegisterThemisResponse {
+	Connection connection = 1;
+	RanaUUID ranaID = 2;
+}
+
+message GetLocationsRequest {
+	Empty empty = 1;
+}
+
+message GetLocationsResponse {
+	repeated LocationStore locations = 1;
+	repeated int32 capacity = 2;
+}
+
+message GetProductFromConnectionRequest {
+	ConnectionUUID connectionID = 1;
+}
+
+message GetProductFromConnectionResponse {
+	Product product = 1;
+}
+
+message GetVersionStoreRequest {
+	VersionStoreName name = 1;
+}
+
+message GetVersionStoreResponse {
+	VersionStore versionStore = 1;
+}
+
+message GetProductsRequest {
+	RanaUUID ranaID = 1;
+}
+
+message GetProductsResponse {
+	repeated ProductUUID products = 1;
+}
+
+message CreatePaymentUrlRequest {
+	RanaUUID ranaID = 1;
+}
+
+message CreatePaymentUrlResponse {
+	string checkoutSession = 1;
+}
+
+message CheckPaymentRequest {
+	RanaUUID ranaID = 1;
+}
+
+message CheckPaymentResponse {
+	bool paid = 1;
+}
+
+message ListAdsRequest {
+	AdType adType = 1;
+}
+
+message ListAdsResponse {
+	repeated Ad ads = 1;
+}
+
+message CheckSessionTokenRequest {
+	string sessionToken = 1;
+}
+
+message CheckSessionTokenResponse {
+	RanaUUID ranaID = 1;
+}
+
+message CheckPasswordStrengthRequest {
+	string password = 1;
+}
+
+message CheckPasswordStrengthResponse {
+	bool passed = 1;
+	string reason = 2;
+}
+
+message ResetPasswordRequest {
+	string email = 1;
+}
+
+message ResetPasswordResponse {
+	Empty empty = 1; 
+}
+
+message CreateRanaAccountRequest {
+	Email email = 1;
+	LocationUUID locationID = 2;
+	string password = 3;
+}
+
+message CreateRanaAccountResponse {
+	string sessionToken = 1;
+}
+
+message LoginRanaRequest {
+	Email email = 1;
+	string password = 2;
+}
+
+message LoginRanaResponse {
+	string sessionToken = 1;
+}
+
+message CreatePaymentUrlAuthRequest {
+	string sessionToken = 1;
+	ProductUUID productID = 2;
+}
+
+message CreatePaymentUrlAuthResponse {
+	string checkoutSession = 1;
+}
+
+message CheckPaymentAuthRequest {
+	string sessionToken = 1;
+	ProductUUID productID = 2;
+}
+
+message CheckPaymentAuthResponse {
+	bool paid = 1;
+}
+
+message GetAppsRequest {
+	string sessionToken = 1;
+}
+
+message GetAppsResponse {
+	repeated App apps = 1;
+}
+
+message GetAvailableProductsRequest {
+	Empty empty = 1;
+}
+
+message GetAvailableProductsResponse {
+	repeated Product products = 1;
+}
+
+message GetProductRequest {
+	ProductUUID productID = 1;
+}
+
+message GetProductResponse {
+	Product product = 1;
+}
+
+message GetAdRequest {
+	AdUUID adID = 1;
+}
+
+message GetAdResponse {
+	Ad ad = 1;
+}
+
+message WakeUpAppRequest {
+	string sessionToken = 1;
+	AppUUID appID = 2;
+}
+
+message WakeUpAppResponse {
+	Connection connection = 1;
+}

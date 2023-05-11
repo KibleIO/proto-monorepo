@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+
+// the most dull service in existence
+service AERGIA {
+	rpc Ping (Empty) returns (Empty) {}
+}

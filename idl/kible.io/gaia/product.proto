@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+
+
+message Product {
+	ProductUUID productID = 1;
+	ProductName productName = 2;
+
+	repeated Feature features = 3;
+	string iconUrl = 5;
+	string adPictureUrl = 6;
+	string stripeProductID = 7;
+	string description = 8;
+	//if this is set to true, do not display this product in the dock on
+	//productionized instances of Rana
+	bool isHidden = 9;
+	ProductType type = 10;
+}
+
+enum ProductType {
+	PRODUCTTYPE_INVALID = 0;
+	PRODUCTTYPE_DEVELOPER = 1;
+	PRODUCTTYPE_KIBLE = 2;
+}
+
+enum Feature {
+	FEATURE_15GB_STORAGE = 0;
+	LOCAL_FILE_ACCESS = 1;
+	FEATURE_PREMIUM = 2;
+	FEATURE_PERSISTANT_EXISTENCE = 3;
+}
+
+message ProductName {
+	string value = 1;
+}
+
+message ProductUUID {
+        UUID uuid = 1;
+}

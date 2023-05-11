@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/universal.proto";
+
+message VersionStore {
+	VersionUUID versionID = 1;
+	VersionStoreName name = 2;
+	Version version = 3;
+}
+
+message VersionStoreName {
+	string value = 1;
+}
+
+message Version {
+	string value = 1;
+}
+
+message VersionUUID {
+        UUID uuid = 1;
+}

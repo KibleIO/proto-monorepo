@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package kible.gaia;
+
+option go_package = "gaia/src/kible.io/gen/gaiapb";
+
+import "gaia/server.proto";
+import "gaia/locationstore.proto";
+import "gaia/universal.proto";
+
+message Connection {
+	ConnectionUUID connectionID = 1;
+	ContainerID containerID = 2;
+	int32 grpcPort = 3;
+	int32 themisPort = 4;
+	string ip = 5;
+	bool used = 6;
+	LocationUUID locationID = 7;
+	ServerUUID serverID = 8;
+	bool booted = 9;
+	int32 filesPort = 10;
+}
+
+message ConnectionUUID {
+	UUID uuid = 1;
+}
+
+message ContainerID {
+	ID id = 1;
+}
