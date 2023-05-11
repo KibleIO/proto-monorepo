@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/themispb";
+
+package kible.themis;
+
+import "gaia/universal.proto";
+
+// Creates an item in the database
+service THEMIS {
+	rpc Update (UpdateRequest) returns (UpdateResponse) {}
+	rpc Launch (LaunchRequest) returns (LaunchResponse) {}
+	rpc Check (CheckRequest) returns (CheckResponse) {}
+	rpc Resize (ResizeRequest) returns (ResizeResponse) {}
+}
+
+message UpdateRequest {
+	kible.gaia.Empty empty = 1;
+}
+
+message UpdateResponse {
+	kible.gaia.Empty empty = 1;
+}
+message LaunchRequest {
+	kible.gaia.Empty empty = 1;
+}
+message LaunchResponse {
+	kible.gaia.Empty empty = 1;
+}
+message CheckRequest {
+	string text = 1;
+}
+
+message CheckResponse {
+	bool value = 1;
+}
+
+message ResizeRequest {
+	int32 width = 1;
+	int32 height = 2;
+}
+
+message ResizeResponse {
+	kible.gaia.Empty empty = 1;
+}
