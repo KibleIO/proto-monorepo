@@ -10,24 +10,24 @@ import "gaia/account.proto";
 
 // external facing API
 service EDGE {
-	rpc GetThemis(GetThemisRequest) returns (GetThemisResponse) {}
-	rpc GetKasm(GetKasmRequest) returns (GetKasmResponse) {}
+	rpc Themis(ThemisRequest) returns (ThemisResponse) {}
+	rpc Kasm(KasmRequest) returns (KasmResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}
 }
 
-message GetThemisRequest {
+message ThemisRequest {
 	kible.gaia.SessionUUID sessionID = 1;
 }
 
-message GetThemisResponse {
+message ThemisResponse {
 	string address = 1;
 }
 
-message GetKasmRequest {
+message KasmRequest {
 	kible.gaia.SessionUUID sessionID = 1;
 }
 
-message GetKasmResponse {
+message KasmResponse {
 	string address = 1;
 }
 
