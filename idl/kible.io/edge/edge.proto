@@ -16,7 +16,7 @@ service EDGE {
 }
 
 message GetThemisRequest {
-	SessionUUID sessionID = 1;
+	kible.gaia.SessionUUID sessionID = 1;
 }
 
 message GetThemisResponse {
@@ -24,7 +24,7 @@ message GetThemisResponse {
 }
 
 message GetKasmRequest {
-	SessionUUID sessionID = 1;
+	kible.gaia.SessionUUID sessionID = 1;
 }
 
 message GetKasmResponse {
@@ -32,10 +32,10 @@ message GetKasmResponse {
 }
 
 message LoginRequest {
-	Email email = 1;
-	Password password = 2;
+	kible.gaia.Email email = 1;
+	kible.gaia.Password password = 2;
 }
 
 message LoginResponse {
-	SessionUUID sessionID = 1;
+	kible.gaia.SessionUUID sessionID = 1;
 }
