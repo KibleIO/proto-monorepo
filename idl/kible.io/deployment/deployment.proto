@@ -4,11 +4,13 @@ option go_package = "gaia/src/kible.io/gen/deploymentpb";
 
 package kible.deployment;
 
+import "gaia/universal.proto";
+import "gaia/locationstore.proto";
 
 // external facing API
 service DEPLOYMENT {
 	rpc GetServiceConnection (GetServiceRequest) returns (GetServiceResponse) {}
-
+	rpc CreateServerInstance (CreateServerInstanceRequest) returns (CreateServerInstanceResponse) {}
 }
 
 message GetServiceRequest {
@@ -17,4 +19,15 @@ message GetServiceRequest {
 
 message GetServiceResponse {
 	string address = 1;
+}
+
+message CreateServerInstanceRequest {
+	kible.gaia.UUID serverid = 1;
+	string domain = 2;
+	kible.gaia.LocationUUID locationid = 3;
+	int32 activenodes = 4;
+}
+
+message CreateServerInstanceResponse {
+	kible.gaia.Empty empty = 1;
 }
