@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/edgepb";
+
+package kible.edge;
+
+import "gaia/session.proto";
+import "gaia/rana.proto";
+import "gaia/account.proto";
+
+// external facing API
+service EDGE {
+	rpc GetThemis(GetThemisRequest) returns (GetThemisResponse) {}
+	rpc GetKasm(GetKasmRequest) returns (GetKasmResponse) {}
+	rpc Login(LoginRequest) returns (LoginResponse) {}
+}
+
+message GetThemisRequest {
+	SessionUUID sessionID = 1;
+}
+
+message GetThemisResponse {
+	string address = 1;
+}
+
+message GetKasmRequest {
+	SessionUUID sessionID = 1;
+}
+
+message GetKasmResponse {
+	string address = 1;
+}
+
+message LoginRequest {
+	Email email = 1;
+	Password password = 2;
+}
+
+message LoginResponse {
+	SessionUUID sessionID = 1;
+}
