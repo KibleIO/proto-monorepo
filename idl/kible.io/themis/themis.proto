@@ -11,7 +11,7 @@ service THEMIS {
 	rpc Update (UpdateRequest) returns (UpdateResponse) {}
 	rpc Launch (LaunchRequest) returns (LaunchResponse) {}
 	rpc Check (CheckRequest) returns (CheckResponse) {}
-	rpc Resize (ResizeRequest) returns (ResizeResponse) {}
+	rpc Dimensions (DimensionsRequest) returns (DimensionsResponse) {}
 }
 
 message UpdateRequest {
@@ -35,11 +35,11 @@ message CheckResponse {
 	bool value = 1;
 }
 
-message ResizeRequest {
+message DimensionsRequest {
 	int32 width = 1;
 	int32 height = 2;
 }
 
-message ResizeResponse {
+message DimensionsResponse {
 	kible.gaia.Empty empty = 1;
 }
