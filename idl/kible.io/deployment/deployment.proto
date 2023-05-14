@@ -9,6 +9,7 @@ import "gaia/locationstore.proto";
 
 // external facing API
 service DEPLOYMENT {
+	rpc GetServer (GetServerRequest) returns (GetServerResponse) {}
 	rpc GetServiceConnection (GetServiceRequest) returns (GetServiceResponse) {}
 	rpc CreateServerInstance (CreateServerInstanceRequest) returns (CreateServerInstanceResponse) {}
 }
@@ -30,4 +31,14 @@ message CreateServerInstanceRequest {
 
 message CreateServerInstanceResponse {
 	kible.gaia.Empty empty = 1;
+}
+
+message GetServerRequest {
+	kible.gaia.UUID serverid = 1;
+}
+
+message GetServerResponse {
+	string domain = 1;
+	kible.gaia.LocationUUID locationid = 2;
+	int32 activenodes = 3;
 }
