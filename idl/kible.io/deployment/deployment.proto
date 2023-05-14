@@ -26,7 +26,6 @@ message CreateServerInstanceRequest {
 	kible.gaia.UUID serverid = 1;
 	string domain = 2;
 	kible.gaia.LocationUUID locationid = 3;
-	int32 activenodes = 4;
 }
 
 message CreateServerInstanceResponse {
