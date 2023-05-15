@@ -10,6 +10,7 @@ import "gaia/server.proto";
 // external facing API
 service DOMAIN {
 	rpc GetInstancePath (GetInstancePathRequest) returns (GetInstancePathResponse) {}
+	rpc GetInstancePathFromContainerId (GetInstancePathFromContainerIdRequest) returns (GetInstancePathFromContainerIdResponse) {}
 }
 
 message GetInstancePathRequest {
@@ -19,5 +20,13 @@ message GetInstancePathRequest {
 }
 
 message GetInstancePathResponse {
+	string path = 1;
+}
+
+message GetInstancePathFromContainerIdRequest {
+	string containerID = 1;
+}
+
+message GetInstancePathFromContainerIdResponse {
 	string path = 1;
 }

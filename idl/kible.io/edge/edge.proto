@@ -13,6 +13,7 @@ service EDGE {
 	rpc Themis(ThemisRequest) returns (ThemisResponse) {}
 	rpc Kasm(KasmRequest) returns (KasmResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}
+	rpc Path(PathRequest) returns (PathResponse) {}
 }
 
 message ThemisRequest {
@@ -38,4 +39,12 @@ message LoginRequest {
 
 message LoginResponse {
 	kible.gaia.SessionUUID sessionID = 1;
+}
+
+message PathRequest {
+	string containerID = 1;
+}
+
+message PathResponse {
+	string path = 1;
 }
