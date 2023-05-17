@@ -12,6 +12,7 @@ service THEMIS {
 	rpc Launch (LaunchRequest) returns (LaunchResponse) {}
 	rpc Check (CheckRequest) returns (CheckResponse) {}
 	rpc Dimensions (DimensionsRequest) returns (DimensionsResponse) {}
+	rpc Density (DensityRequest) returns (DensityResponse) {}
 }
 
 message UpdateRequest {
@@ -41,5 +42,21 @@ message DimensionsRequest {
 }
 
 message DimensionsResponse {
+	kible.gaia.Empty empty = 1;
+}
+
+enum PixelDensity {
+	PIXELDENSITY_INVALID = 0;
+	PIXELDENSITY_HIGH = 1;
+	PIXELDENSITY_MEDIUM = 2;
+	PIXELDENSITY_LOW = 3;
+	PIXELDENSITY_PLACEBO = 4;
+}
+
+message DensityRequest {
+	PixelDensity density = 1;
+}
+
+message DensityResponse {
 	kible.gaia.Empty empty = 1;
 }
