@@ -23,7 +23,6 @@ message GetServiceResponse {
 }
 
 message CreateServerInstanceRequest {
-	kible.gaia.UUID serverid = 1;
 	string domain = 2;
 	kible.gaia.LocationUUID locationid = 3;
 }

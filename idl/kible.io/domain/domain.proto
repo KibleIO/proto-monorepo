@@ -6,11 +6,14 @@ package kible.domain;
 
 import "gaia/account.proto";
 import "gaia/server.proto";
+import "gaia/universal.proto";
 
 // external facing API
 service DOMAIN {
 	rpc GetInstancePath (GetInstancePathRequest) returns (GetInstancePathResponse) {}
 	rpc GetInstancePathFromContainerId (GetInstancePathFromContainerIdRequest) returns (GetInstancePathFromContainerIdResponse) {}
+	rpc GetInstances (GetInstancesRequest) returns (GetInstancesResponse) {}
+	rpc GetContainerId (GetContainerIdRequest) returns (GetContainerIdResponse) {}
 }
 
 message GetInstancePathRequest {
@@ -29,4 +32,20 @@ message GetInstancePathFromContainerIdRequest {
 
 message GetInstancePathFromContainerIdResponse {
 	string path = 1;
+}
+
+message GetInstancesRequest {
+	kible.gaia.Empty empty = 1;
+}
+
+message GetInstancesResponse {
+	repeated string containerIDs = 1;
+}
+
+message GetContainerIdRequest {
+	string domainContainerID = 1;
+}
+
+message GetContainerIdResponse {
+	string containerID = 1;
 }
