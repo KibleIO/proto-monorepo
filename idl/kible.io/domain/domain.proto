@@ -52,5 +52,5 @@ message GetDomainContainerResponse {
 	string containerID = 3;
 	string path = 4;
 	int32 port = 5;
-	string isUsed = 6;
+	bool isUsed = 6;
 }
