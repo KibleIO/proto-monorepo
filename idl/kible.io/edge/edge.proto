@@ -14,6 +14,7 @@ service EDGE {
 	rpc Kasm(KasmRequest) returns (KasmResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}
 	rpc Path(PathRequest) returns (PathResponse) {}
+	rpc Token(TokenRequest) returns (TokenResponse) {}
 }
 
 message ThemisRequest {
@@ -47,4 +48,12 @@ message PathRequest {
 
 message PathResponse {
 	string path = 1;
+}
+
+message TokenRequest {
+	kible.gaia.SessionUUID sessionID = 1;
+}
+
+message TokenResponse {
+	bool valid = 1;
 }
