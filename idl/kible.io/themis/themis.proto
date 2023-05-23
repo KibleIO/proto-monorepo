@@ -23,9 +23,18 @@ message UpdateRequest {
 message UpdateResponse {
 	kible.gaia.Empty empty = 1;
 }
+
+enum LaunchBackend {
+	LAUNCHBACKEND_INVALID = 0;
+	LAUNCHBACKEND_TCP = 1;
+	LAUNCHBACKEND_UDP = 2;
+	LAUNCHBACKEND_WS = 3;
+}
+
 message LaunchRequest {
 	int32 width = 1;
 	int32 height = 2;
+	LaunchBackend launchBackend = 3;
 }
 message LaunchResponse {
 	kible.gaia.Empty empty = 1;
