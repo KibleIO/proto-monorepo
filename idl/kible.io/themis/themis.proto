@@ -13,6 +13,7 @@ service THEMIS {
 	rpc Check (CheckRequest) returns (CheckResponse) {}
 	rpc Dimensions (DimensionsRequest) returns (DimensionsResponse) {}
 	rpc Density (DensityRequest) returns (DensityResponse) {}
+	rpc Ping (PingRequest) returns (PingResponse) {}
 }
 
 message UpdateRequest {
@@ -23,7 +24,8 @@ message UpdateResponse {
 	kible.gaia.Empty empty = 1;
 }
 message LaunchRequest {
-	kible.gaia.Empty empty = 1;
+	int32 width = 1;
+	int32 height = 2;
 }
 message LaunchResponse {
 	kible.gaia.Empty empty = 1;
@@ -58,5 +60,12 @@ message DensityRequest {
 }
 
 message DensityResponse {
+	kible.gaia.Empty empty = 1;
+}
+
+message PingRequest {
+	kible.gaia.Empty empty = 1;
+}
+message PingResponse {
 	kible.gaia.Empty empty = 1;
 }
