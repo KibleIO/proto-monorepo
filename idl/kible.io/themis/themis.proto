@@ -14,6 +14,15 @@ service THEMIS {
 	rpc Dimensions (DimensionsRequest) returns (DimensionsResponse) {}
 	rpc Density (DensityRequest) returns (DensityResponse) {}
 	rpc Ping (PingRequest) returns (PingResponse) {}
+	rpc FPS (FPSRequest) returns (FPSResponse) {}
+}
+
+message FPSRequest {
+	int32 fps = 1;
+}
+
+message FPSResponse {
+	kible.gaia.Empty empty = 1;
 }
 
 message UpdateRequest {
