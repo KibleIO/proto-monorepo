@@ -4,6 +4,7 @@ option go_package = "gaia/src/kible.io/gen/edgepb";
 
 package kible.edge;
 
+import "gaia/universal.proto";
 import "gaia/session.proto";
 import "gaia/rana.proto";
 import "gaia/account.proto";
@@ -13,6 +14,8 @@ service EDGE {
 	rpc Themis(ThemisRequest) returns (ThemisResponse) {}
 	rpc Kasm(KasmRequest) returns (KasmResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}
+	rpc Signup(LoginRequest) returns (LoginResponse) {}
+	rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
 	rpc Path(PathRequest) returns (PathResponse) {}
 	rpc Token(TokenRequest) returns (TokenResponse) {}
 }
@@ -40,6 +43,25 @@ message LoginRequest {
 
 message LoginResponse {
 	kible.gaia.SessionUUID sessionID = 1;
+}
+
+message SignUpRequest {
+	kible.gaia.Email email = 1;
+	kible.gaia.Password password = 2;
+	int32 locationID = 3;
+}
+
+message SignUpResponse {
+	kible.gaia.SessionUUID sessionID = 1;
+}
+
+message ForgotPasswordRequest {
+	kible.gaia.Email email = 1;
+	string host = 2;
+}
+
+message ForgotPasswordResponse {
+	kible.gaia.Empty empty = 1;
 }
 
 message PathRequest {
