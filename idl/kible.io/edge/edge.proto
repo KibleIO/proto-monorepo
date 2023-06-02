@@ -14,7 +14,7 @@ service EDGE {
 	rpc Themis(ThemisRequest) returns (ThemisResponse) {}
 	rpc Kasm(KasmRequest) returns (KasmResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}
-	rpc Signup(SignUpRequest) returns (SignUpResponse) {}
+	rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
 	rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
 	rpc Path(PathRequest) returns (PathResponse) {}
 	rpc Token(TokenRequest) returns (TokenResponse) {}
