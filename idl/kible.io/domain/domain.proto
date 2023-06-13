@@ -14,6 +14,7 @@ service DOMAIN {
 	rpc GetInstancePathFromContainerId (GetInstancePathFromContainerIdRequest) returns (GetInstancePathFromContainerIdResponse) {}
 	rpc GetInstances (GetInstancesRequest) returns (GetInstancesResponse) {}
 	rpc GetDomainContainer (GetDomainContainerRequest) returns (GetDomainContainerResponse) {}
+	rpc UpdateDomainContainerVersion (UpdateDomainContainerVersionRequest) returns (UpdateDomainContainerVersionResponse) {}
 }
 
 message GetInstancePathRequest {
@@ -53,4 +54,20 @@ message GetDomainContainerResponse {
 	string path = 4;
 	int32 port = 5;
 	bool isUsed = 6;
+	string version = 7;
+}
+
+message UpdateDomainContainerVersionRequest {
+	string containerID = 1;
+	string version = 2;
+}
+
+message UpdateDomainContainerVersionResponse {
+	string accountID = 1;
+	string serverID = 2;
+	string containerID = 3;
+	string path = 4;
+	int32 port = 5;
+	bool isUsed = 6;
+	string version = 7;
 }
