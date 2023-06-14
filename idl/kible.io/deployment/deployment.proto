@@ -39,4 +39,6 @@ message GetServerResponse {
 	string domain = 1;
 	kible.gaia.LocationUUID locationid = 2;
 	int32 activenodes = 3;
+	string caddypassword = 4;
+	string dockerpassword = 5;
 }
