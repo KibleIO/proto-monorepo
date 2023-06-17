@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/horuspb";
+
+package kible.horus;
+
+// external facing API
+service HORUS {
+	rpc UpdateProcess (UpdateProcessRequest) returns (UpdateProcessResponse) {}
+}
+
+message UpdateProcessRequest {}
+message UpdateProcessResponse {}
