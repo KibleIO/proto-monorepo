@@ -4,6 +4,7 @@ option go_package = "gaia/src/kible.io/gen/horuspb";
 
 package kible.horus;
 
+import "gaia/universal.proto";
 
 // external facing API
 service HORUS {
@@ -11,12 +12,16 @@ service HORUS {
 	rpc GithubWebhook (GithubWebhookRequest) returns (GithubWebhookResponse) {}
 }
 
-message UpdateProcessRequest {}
-message UpdateProcessResponse {}
+message UpdateProcessRequest {
+	kible.gaia.Empty empty = 1;
+}
+message UpdateProcessResponse {
+	kible.gaia.Empty empty = 1;
+}
 
 message GithubWebhookRequest {
 	string data = 1;
 }
 message GithubWebhookResponse {
-
+	kible.gaia.Empty empty = 1;
 }
