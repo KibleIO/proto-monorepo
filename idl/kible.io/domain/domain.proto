@@ -75,7 +75,9 @@ message UpdateDomainContainerVersionResponse {
 	string volume = 8;
 }
 
-message GetMaxPortCountRequest {}
+message GetMaxPortCountRequest {
+	kible.gaia.Empty empty = 1;
+}
 
 message GetMaxPortCountResponse {
 	int32 count = 1;
