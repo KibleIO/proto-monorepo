@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "gaia/src/kible.io/gen/horuspb";
+
+package kible.horus;
+
+import "gaia/universal.proto";
+
+// external facing API
+service HORUS {
+	rpc UpdateProcess (UpdateProcessRequest) returns (UpdateProcessResponse) {}
+	rpc GithubWebhook (GithubWebhookRequest) returns (GithubWebhookResponse) {}
+}
+
+message UpdateProcessRequest {
+	kible.gaia.Empty empty = 1;
+}
+message UpdateProcessResponse {
+	kible.gaia.Empty empty = 1;
+}
+
+message GithubWebhookRequest {
+	string data = 1;
+}
+message GithubWebhookResponse {
+	kible.gaia.Empty empty = 1;
+}
